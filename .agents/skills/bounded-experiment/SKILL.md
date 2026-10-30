@@ -4,8 +4,11 @@ description: Run a bounded improvement cycle against fixed acceptance cases, pre
 ---
 # Bounded experiment
 Read STATE, affected acceptance cases, and the relevant implementation.
+Check scripts/timer.py status --root . if a timer exists; the platform clock takes precedence.
+For a 60-minute rehearsal, keep an iteration to 5–10 minutes and freeze new features at minute 47.
 If no baseline exists, measure one before changing behavior.
 Define one causal hypothesis, one main change, a time limit (normally 15–25 minutes), and a decision criterion.
+Keep the iteration within the remaining phase budget; do not restart a persistent timer.
 Run trusted checks with scripts/verify.py. It records execution status, not domain correctness unless the command asserts it.
 Keep the same cases and input data for the comparison. If a case was wrong, document the correction and remeasure both sides.
 Do not promote a noisy change from a single lucky model response; repeat only important uncertain cases.

@@ -21,6 +21,9 @@ Read only the relevant skill and 1–3 relevant decisions, not the entire catalo
 
 ## Working contract
 - Keep .sprint/STATE.md current at milestones and handoffs.
+- Record stakeholder answers and requirement links in .sprint/STAKEHOLDER.md.
+- Map exact required output paths in .sprint/DELIVERABLES.md; prepare evidence-backed DEFENSE before submission.
+- Use the optional timer explicitly, never reset it on restart; platform time overrides local estimates.
 - Link each required behavior to a real check in .sprint/ACCEPTANCE.md.
 - Record important tradeoffs as short ADRs, not every small edit.
 - Preserve the last working baseline; revert only your specific failed changes.

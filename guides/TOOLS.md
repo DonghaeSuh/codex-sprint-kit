@@ -7,6 +7,7 @@
 | 후보 | 판정 | 확인한 근거 / 한계 |
 |---|---|---|
 | 자체 4 Skill + Python 하네스 | 기본 사용 | 실행 검증은 VALIDATION.md. Skill 효과 A/B는 미측정 |
+| codex-timebox-kit의 인터뷰·설명·인벤토리·시간 운영 | 절차 참고 | 독립 구현으로 보강. bootstrap·hooks·rules는 설치하지 않음. 자체 리허설 보고서의 0.163 실측은 재현하지 않음 |
 | obra/superpowers 디버깅·검증 | 절차 참고 | 두 SKILL.md 검토. 다른 Skill 참조·긴 절차가 있어 그대로 반입하지 않음 |
 | Superpowers 전체 | 기본 제외 | 전체 설치 없이 필요한 원리만 독립 작성 |
 | openai/skills | 신규 설치 경로 제외 | 고정 커밋 README에 deprecated 및 openai/plugins 이전 안내 |

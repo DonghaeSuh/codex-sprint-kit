@@ -20,6 +20,10 @@
     BOUNDARIES.md              ← 세션 경계
     EXPERIMENTS.jsonl          ← 실험 비교
     MANUAL-CHECKS.md           ← 사용자의 실제 화면 관측
+    STAKEHOLDER.md             ← 실제 실무자 답변과 요구사항 연결
+    DELIVERABLES.md            ← 과제가 요구한 최종 파일 경로
+    DEFENSE.md                 ← 제출 전 본인 설명 자료
+    timer.json                ← 선택적 로컬 타이머 (재시작해도 유지)
     verify.json               ← 실제 과제 검사 명령
     decisions/                ← 중요한 선택의 짧은 ADR
     runs/                     ← 검증 로그·보고서
@@ -49,6 +53,8 @@ git -C codex-sprint-kit rev-parse HEAD
 4. `.sprint/STATE.md`에 과제 루트, 가져온 커밋, 확인된 시간과 현재 단계를 적습니다.
    초기화는 기존 파일을 보존하므로 이미 진행한 상태가 있으면 초기 단계로 되돌리지 않습니다.
    세션 중 키트를 pull/update하거나 이전 준비 커밋으로 checkout하지 않고 기록한 버전을 유지합니다.
+   로컬 리허설은 키트에 .git이 없는 파일 사본일 수 있습니다. `.sprint/REHEARSAL.json`이 있으면
+   그 파일의 커밋·복사 시 변경 여부·예산을 읽고 Git 정보 부재를 설치 실패로 보지 않습니다.
 5. `codex-sprint-kit/AGENTS.md`와 `codex-sprint-kit/.agents/skills/task-intake/SKILL.md`를 읽습니다.
    스킬 설치·사용자 전역 설정 변경은 필요 없습니다. 직접 읽어 절차를 적용합니다.
 
@@ -59,20 +65,45 @@ git -C codex-sprint-kit rev-parse HEAD
 Python이 없거나 명령이 차단되면 설치·우회부터 하지 않습니다.
 제공 도구로 문서를 직접 작성하고 원래 프로젝트 검사 명령을 사용합니다. 막힌 부분은 플랫폼 절차로 문의합니다.
 
+### 선택적 로컬 타이머
+`.sprint/timer.json`이 이미 있으면 `status`로 이어갑니다. 새로 시작하거나 예산을 바꾸지 않습니다.
+본시험은 실제 확인된 작업 예산으로 시작합니다. 다음 180은 작업 예산이 180분인 경우에만 사용합니다.
+
+```bash
+python3 codex-sprint-kit/scripts/timer.py start --root . --minutes 180
+python3 codex-sprint-kit/scripts/timer.py status --root .
+```
+
+이미 5분 지났다면 첫 start에 `--elapsed-minutes 5`를 추가합니다. 사용자에게 확인한 값만 씁니다.
+재실행은 기존 시작을 유지하며 다른 예산은 오류로 거절합니다. 플랫폼 타이머가 항상 우선합니다.
+타이머는 안내용이며 만료 시 AI·서버를 자동 종료하지 않습니다. 60분 리허설에서는 예산 60을 사용합니다.
+
 ## 2. 요구 파악 — 시작 후 약 20분까지
 
 **Codex 작업**
 - README, 입출력 자료, 실행 진입점, 기존 의존성과 테스트를 확인합니다.
 - `.sprint/BRIEF.md`: 사용자·업무·입력·출력·필수조건·제외범위·제출형식.
 - `.sprint/ACCEPTANCE.md`: R1… 요구사항 ID, 원문 근거, 확인 방법, 상태.
+- `.sprint/STAKEHOLDER.md`: 실제 질문·답변·출처·요구사항 ID·확인된 합의·미확인 사항.
+- `.sprint/DELIVERABLES.md`: 요구된 파일명·경로·형식과 실제 산출물의 매핑.
 - 코드에서 확인되는 사실, 아직 검증하지 않은 가정, 업무 담당자 질문을 구분합니다.
 - 실제 필요한 질문만 정리하고 첫 입력→처리→결과 흐름을 정합니다.
 - 기본 구조를 유지합니다. 새 프레임워크는 필수 기능에 꼭 필요할 때만 근거를 남기고 도입합니다.
+
+CSV/TSV가 있으면 먼저 제한된 요약으로 구조를 파악합니다.
+```bash
+python3 codex-sprint-kit/scripts/inventory.py --root . --path uploads
+```
+원시 행·샘플 값은 출력하지 않습니다. `partial`이나 `scan_partial`이면 전체 조사로 표현하지 않습니다.
+`complete`는 제한 없이 읽었다는 의미이며 데이터가 업무 규칙에 맞다는 판정은 아닙니다.
+파일명·열 이름은 출력되는 메타데이터입니다. 요약의 범위 밖 검증과 업무 의미 확인은 별도로 합니다.
 
 **사용자 작업**
 업무 담당자에게 핵심 사용자·대표 성공 사례·치명적 오류·모호한 입력 처리 기준을 묻습니다.
 플랫폼 사용법은 Helper, 시스템 장애는 문제 신고로 구분합니다.
 답변을 Codex에 전달하거나 허용된 세션 내 파일에 적습니다. Codex가 메신저 UI를 자동 조작하지 않습니다.
+질문은 최근 사례 → 현재 처리 → 성공 기준 → 경계/예외 → 우선순위 → 합의 확인 순서로 좁힙니다.
+답변 대기 중 Codex는 데이터 구조·기존 코드 확인 등 막히지 않은 작업을 진행합니다.
 
 **이 단계에서 받을 보고**
 필수 항목 / 가장 먼저 만들 흐름 / 확인할 질문 / 검증 방법 / 다음 20분 작업.
@@ -114,6 +145,7 @@ Codex는 `codex-sprint-kit/.agents/skills/bounded-experiment/SKILL.md`를 읽습
 
 한 주기는 15–25분 이내로 제한합니다.
 1. 현재 실패·부족한 요구사항을 실제 입력과 함께 고릅니다.
+   로컬 타이머가 있으면 status를 확인하고, 60분 리허설의 실험은 5–10분으로 줄입니다.
 2. 원인 가설 하나, 변경 하나, 기대 결과, 중단 시각을 정합니다.
 3. 기준 버전의 관련 코드 또는 로컬 diff를 보존합니다. 키트가 아닌 과제의 허용 경로를 사용합니다.
 4. 최소 수정 후 같은 입력·검사를 실행합니다. 점수 개선을 위해 검사 기준을 느슨하게 하지 않습니다.
@@ -190,9 +222,11 @@ Computer Use 금지 환경에서는 Playwright/DevTools 등으로 자동 조작�
 
 Codex는 `codex-sprint-kit/.agents/skills/delivery-check/SKILL.md`를 읽습니다.
 - 실제 README의 제출 조건과 ACCEPTANCE를 대조합니다.
+- DELIVERABLES를 실제 파일과 대조합니다. 루트 HANDOFF.md 요구를 .sprint/STATE.md로 대체하지 않습니다.
 - 필수 검사, 실제 파일·출력, 저장 상태, 실행법을 확인합니다.
 - 사용자에게 수동 확인이 남은 항목을 정확히 알려줍니다.
 - ① 해결한 문제 ② 처리 경로 ③ 선택·버린 대안 ④ AI 사용·직접 검증 ⑤ 남은 한계를 설명합니다.
+- 위 내용을 `.sprint/DEFENSE.md`에 근거와 함께 정리하고 사용자가 핵심 동작을 직접 설명하게 합니다.
 - 사용자가 이해하지 못한 핵심 부분은 AI 사용이 허용된 제출 전 단계에서 설명합니다.
 - 미검증·오류를 감추지 않고 최종 상태를 기록합니다.
 

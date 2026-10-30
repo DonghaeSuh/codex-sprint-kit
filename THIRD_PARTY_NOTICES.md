@@ -7,6 +7,7 @@ Conceptual references:
 - UpstageAI/aimp-agentry: specification, ADR routing, measured evaluation and regression records.
 - obra/superpowers: evidence-driven debugging and completion verification.
 - OpenAI official documentation: Codex skill and MCP usage.
+- DonghaeSuh/codex-timebox-kit: stakeholder interviews, defense notes, data inventory and elapsed-time workflow concepts; implemented independently here without its bootstrap, hooks, rules or source files.
 Other candidates were inspected for suitability; inspection is not endorsement or redistribution permission.
 
 Exact Git revisions, inspection paths and decisions are in sources.lock.json.

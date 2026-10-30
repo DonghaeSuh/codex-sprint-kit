@@ -67,6 +67,7 @@ python3 codex-sprint-kit/scripts/verify.py --root . --config .sprint/verify.json
 
 ## 문서
 - **[clone 직후부터 제출까지의 세션 안내](SESSION.md)**
+- **[별도 폴더에서 60분 연습하는 방법](guides/REHEARSAL.md)**
 - [작업 루프와 요청 예시](guides/WORKFLOW.md)
 - [도구 선정과 실제 검증 수준](guides/TOOLS.md)
 - [공개·고정 버전·반입](guides/PUBLISH.md)
@@ -76,3 +77,9 @@ python3 codex-sprint-kit/scripts/verify.py --root . --config .sprint/verify.json
 - [검증 결과](VALIDATION.md)
 
 개별 시험·평가의 안내가 우선합니다. 이 도구가 사용 허가를 대신하지 않습니다.
+
+## 추가 도구와 기록
+CSV/TSV 구조만 빠르게 볼 때는 `scripts/inventory.py`, 경과 시간을 확인할 때는 `scripts/timer.py`를 사용합니다.
+호출 경로와 사용 순서는 SESSION.md에 있습니다. 둘 다 표준 라이브러리만 사용하고 hooks·설정을 설치하지 않습니다.
+초기화 시 실무자 기록(STAKEHOLDER), 제출물 경로표(DELIVERABLES), 본인 설명 자료(DEFENSE)도 추가됩니다.
+이미 연습/작업 중이면 init_workspace를 다시 실행해 새 양식만 추가할 수 있습니다. 기존 기록은 보존합니다.

@@ -141,6 +141,25 @@
         "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/README.md"
       ],
       "limitations": "README only; no plugin installed."
+    },
+    {
+      "id": "DonghaeSuh/codex-timebox-kit",
+      "url": "https://github.com/DonghaeSuh/codex-timebox-kit",
+      "revision": "20d21d900bb52900c08e3ef25e5c3631446fda9f",
+      "license": "MIT",
+      "use": "reference-only",
+      "decision": "Independently implement bounded CSV inventory, persistent timer, stakeholder and defense records; do not import config/rules/bootstrap.",
+      "verification": "static",
+      "evidence": [
+        "workspace/docs/STAKEHOLDER.md",
+        "workspace/docs/DEFENSE.md",
+        "workspace/.agents/skills/kickoff/scripts/inventory.py",
+        "workspace/.agents/skills/loop/scripts/elapsed.sh",
+        "workspace/.agents/skills/ship/scripts/precheck.sh",
+        "bootstrap.sh",
+        "LICENSE"
+      ],
+      "limitations": "Inspected local checkout. Upstream reported Codex 0.163 runtime tests not independently reproduced; rehearsal fixtures stay private."
     }
   ]
 }

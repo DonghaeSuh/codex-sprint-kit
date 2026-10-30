@@ -40,3 +40,18 @@ python3 scripts/provenance.py
 
 For a new synthetic solution, follow practice/README.md and run practice/grade_csv.py.
 The rehearsal solution is deliberately not included in the generic public kit.
+
+## Stakeholder/rehearsal enhancement
+- Public suite now has 25 passing tests (the original 14 plus 11 session-tool checks).
+- Timer tests cover preserved start/budget, elapsed platform time, phase boundaries,
+  expiry, clock regression and invalid input. This is an advisory clock, not an automatic stop.
+- Inventory tests cover missing fields/ragged rows, no sample-value output, UTF-8 BOM,
+  TSV/quoted newlines, empty input, malformed CSV/encoding, byte/row/file limits,
+  hidden/symlink paths, and exact-limit scans. Complete means scanned, not domain-valid.
+- All four skill formats pass the installed quick validator. The source manifest has 11 entries.
+- Two local-only preparation integration checks pass for synthetic web/data cases:
+  source preservation, no credential/secret copy into the candidate, exclusive new folders,
+  file hashes, preserved attempts and initially unstarted timers. Private fixtures/tests
+  are not included in this public package.
+- No human 60-minute rehearsal, stakeholder model conversation, or real task was executed
+  by these checks. Native skill behavior and productivity gains remain unmeasured.
