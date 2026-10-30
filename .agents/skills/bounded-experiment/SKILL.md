@@ -5,6 +5,8 @@ description: Run a bounded improvement cycle against fixed acceptance cases, pre
 # Bounded experiment
 Read STATE, affected acceptance cases, and the relevant implementation.
 Check scripts/timer.py status --root . if a timer exists; the platform clock takes precedence.
+Apply SESSION.md's proactive checkpoint guidance before and after the iteration.
+Announce a newly due checkpoint and do not start an experiment that crosses the next transition.
 For a 60-minute rehearsal, keep an iteration to 5–10 minutes and freeze new features at minute 47.
 If no baseline exists, measure one before changing behavior.
 Define one causal hypothesis, one main change, a time limit (normally 15–25 minutes), and a decision criterion.

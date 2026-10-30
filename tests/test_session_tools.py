@@ -3,6 +3,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 
 KIT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,64 @@ class SessionToolTests(unittest.TestCase):
         self.assertEqual(self.cli("timer.py", "start", "--minutes", "60", "--elapsed-minutes", "nan").returncode, 2)
         self.assertEqual(self.cli("timer.py", "status").returncode, 2)
         self.assertFalse((self.root / ".sprint/timer.json").exists())
+
+    def test_proactive_checkpoints_at_exact_boundaries(self):
+        for budget, milestones in ((60, (42, 47, 50, 55, 58, 60)),
+                                   (180, (125, 160, 165, 170, 175, 180))):
+            state = {"started_epoch": 1000, "budget_minutes": budget}
+            previous = "experiment"
+            for minute, expected in zip(milestones, ("verify", "freeze", "defense", "explain", "submit", "expired")):
+                with self.subTest(budget=budget, minute=minute):
+                    due = 1000 + minute * 60
+                    before = status(state, due - 0.01)
+                    self.assertEqual(before["checkpoint"]["id"], previous)
+                    self.assertEqual(before["next_checkpoint"]["id"], expected)
+                    self.assertEqual(before["seconds_until_next_checkpoint"], 1)
+                    at = status(state, due)
+                    self.assertEqual(at["checkpoint"]["id"], expected)
+                    self.assertEqual(at["checkpoint"]["at"], at["checked_at"])
+                    self.assertEqual(at["remaining_seconds"], (budget - minute) * 60)
+                    previous = expected
+
+    def test_late_resume_uses_current_checkpoint_and_expiry_has_no_ai_request(self):
+        state = {"started_epoch": 1000, "budget_minutes": 180}
+        late = status(state, 1000 + 177 * 60)
+        self.assertEqual(late["checkpoint"]["id"], "submit")
+        self.assertIsNone(late["checkpoint"]["suggested_request"])
+        self.assertEqual(late["next_checkpoint"]["id"], "expired")
+        self.assertEqual(late["seconds_until_next_checkpoint"], 180)
+        expired = status(state, 1000 + 200 * 60)
+        self.assertEqual(expired["checkpoint"]["id"], "expired")
+        self.assertIsNone(expired["checkpoint"]["suggested_request"])
+        self.assertIsNone(expired["next_checkpoint"])
+        self.assertIsNone(expired["seconds_until_next_checkpoint"])
+
+    def test_status_does_not_acknowledge_notice_or_modify_session(self):
+        self.cli("init_workspace.py")
+        folder = self.root / ".sprint"
+        timer = folder / "timer.json"
+        timer.write_text(json.dumps({"started_epoch": time.time() - 51 * 60, "budget_minutes": 60}))
+        state = folder / "STATE.md"
+        state.write_text("- 마지막 선제 안내: freeze / recorded before restart\n")
+        before = {p.name: p.read_bytes() for p in folder.iterdir() if p.is_file()}
+        for _ in range(2):
+            run = self.cli("timer.py", "status", "--root", self.root)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            report = json.loads(run.stdout)
+            self.assertEqual(report["checkpoint"]["id"], "defense")
+            self.assertTrue(report["checkpoint"]["suggested_request"])
+            self.assertEqual(report["next_checkpoint"]["id"], "explain")
+        self.assertEqual(before, {p.name: p.read_bytes() for p in folder.iterdir() if p.is_file()})
+
+    def test_other_budgets_scale_checkpoints_and_deadline(self):
+        state = {"started_epoch": 1000, "budget_minutes": 30}
+        report = status(state, 1000 + 25 * 60)
+        self.assertEqual(report["checkpoint"]["id"], "defense")
+        self.assertEqual(report["remaining_seconds"], 300)
+        self.assertEqual(report["seconds_until_next_checkpoint"], 150)
+        self.assertEqual(report["next_checkpoint"]["after_minutes"], 27.5)
+        expired = status(state, 1000 + 30 * 60)
+        self.assertEqual(expired["checked_at"], report["deadline_at"])
 
     def test_inventory_aggregate_only_and_ragged_rows(self):
         self.data("input.csv", "id,value\nPRIVATE_RAW_SENTINEL,2\nB,\nC,3,extra\n")

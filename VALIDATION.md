@@ -55,3 +55,14 @@ The rehearsal solution is deliberately not included in the generic public kit.
   are not included in this public package.
 - No human 60-minute rehearsal, stakeholder model conversation, or real task was executed
   by these checks. Native skill behavior and productivity gains remain unmeasured.
+
+## Proactive checkpoint update — 2026-10-31
+- Public suite: 29 passing tests. New checks cover exact 60/180-minute transitions,
+  late resume choosing the current checkpoint, scaled budgets, and expiry without an AI request.
+- Repeated timer status checks preserve timer and session files; only the agent records an
+  actually delivered notice in STATE. Checking time does not acknowledge a notice.
+- Both changed skill files pass the installed format validator; 11 source records pass provenance.
+- SESSION instructs the agent to check time around work, announce due transitions, prepare DEFENSE
+  without a repeated user request, and preserve submission/AI boundaries on resume.
+- These are tested time calculations plus an agent procedure. No background alarm, hook,
+  native CLI event integration, or live-model timing/reliability test is included.

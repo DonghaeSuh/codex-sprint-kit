@@ -4,6 +4,9 @@ description: Verify a time-limited deliverable against its task contract, collec
 ---
 # Delivery check
 Read the actual submission rules and acceptance table before declaring completion.
+Apply SESSION.md's proactive checkpoint guidance; check current time and AI permission first.
+When defense is due, prepare the explanation and invite the user to read it without waiting for a prompt.
+Record actual notices in STATE; do not treat an invitation to explain as proof of understanding.
 Compare .sprint/DELIVERABLES.md to files at the exact required paths; internal notes are not substitutes.
 Freeze new features when the remaining time is shorter than a full change-and-retest cycle.
 Run the executable acceptance checks; inspect exit codes AND the meaning of their assertions.

@@ -24,6 +24,11 @@ Read only the relevant skill and 1–3 relevant decisions, not the entire catalo
 - Record stakeholder answers and requirement links in .sprint/STAKEHOLDER.md.
 - Map exact required output paths in .sprint/DELIVERABLES.md; prepare evidence-backed DEFENSE before submission.
 - Use the optional timer explicitly, never reset it on restart; platform time overrides local estimates.
+- On each user turn, before/after an experiment or verification, and before handoff,
+  apply SESSION.md's proactive checkpoint guidance. Recompute time; do not reuse stale remaining time.
+- Announce a newly due checkpoint before ordinary progress, record the actual notice in STATE,
+  and prepare the pre-submission explanation without waiting for the user to remember a prompt.
+  Respect submission/AI permissions even if the local timer still has time. No background alert is implied.
 - Link each required behavior to a real check in .sprint/ACCEPTANCE.md.
 - Record important tradeoffs as short ADRs, not every small edit.
 - Preserve the last working baseline; revert only your specific failed changes.
@@ -39,5 +44,6 @@ Read only the relevant skill and 1–3 relevant decisions, not the entire catalo
 - Historical reports do not certify changed code. Recheck affected behavior.
 - Keep unmeasured outcomes marked not_run or uncertain.
 - Two unproductive iterations: change approach. Three: stop that line of work.
-- When 20 minutes remain, freeze new features; prioritize delivery blockers.
+- Freeze new features at the timer's freeze checkpoint (20 minutes left for 180; 13 for 60),
+  or sooner if a full change-and-retest cycle will not fit; prioritize delivery blockers.
 - Process at most one implementation stream by default.
