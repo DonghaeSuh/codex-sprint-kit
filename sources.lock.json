@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-30",
+  "sources": [
+    {
+      "id": "obra/superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "license": "MIT",
+      "use": "reference-only",
+      "decision": "reference-only: use independently written bounded procedures",
+      "verification": "static",
+      "evidence": [
+        "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/systematic-debugging/SKILL.md",
+        "https://github.com/obra/superpowers/blob/2ce8aa15d05bd57213e6f746f953aafb7ded7a8b/skills/verification-before-completion/SKILL.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "openai/skills",
+      "url": "https://github.com/openai/skills",
+      "revision": "49f948faa9258a0c61caceaf225e179651397431",
+      "license": "per-file-review-required",
+      "use": "reference-only",
+      "decision": "exclude: repository deprecated; inspect openai/plugins",
+      "verification": "source",
+      "evidence": [
+        "https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/README.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "vercel-labs/agent-skills",
+      "url": "https://github.com/vercel-labs/agent-skills",
+      "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "license": "per-file-review-required",
+      "use": "reference-only",
+      "decision": "conditional: React task only",
+      "verification": "static",
+      "evidence": [
+        "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/README.md",
+        "https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/skills/react-best-practices/SKILL.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "upstash/context7",
+      "url": "https://github.com/upstash/context7",
+      "revision": "8a0289e4c5e28684b7c4ced5353af2893d1329f9",
+      "license": "MIT",
+      "use": "reference-only",
+      "decision": "conditional: public generic documentation queries only; runtime unverified",
+      "verification": "source",
+      "evidence": [
+        "https://github.com/upstash/context7/blob/8a0289e4c5e28684b7c4ced5353af2893d1329f9/README.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "github/github-mcp-server",
+      "url": "https://github.com/github/github-mcp-server",
+      "revision": "f2a07cd13243ea9773a0ef42692e5b0e156f0951",
+      "license": "MIT",
+      "use": "reference-only",
+      "decision": "exclude: public clone sufficient, authentication overhead",
+      "verification": "source",
+      "evidence": [
+        "https://github.com/github/github-mcp-server/blob/f2a07cd13243ea9773a0ef42692e5b0e156f0951/README.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "modelcontextprotocol/servers",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "revision": "194cc86e3ae6400958555bd4116849d822d69263",
+      "license": "NOASSERTION",
+      "use": "reference-only",
+      "decision": "exclude: local files and built-in CLI sufficient",
+      "verification": "source",
+      "evidence": [
+        "https://github.com/modelcontextprotocol/servers/blob/194cc86e3ae6400958555bd4116849d822d69263/src/filesystem/README.md",
+        "https://github.com/modelcontextprotocol/servers/blob/194cc86e3ae6400958555bd4116849d822d69263/src/memory/README.md",
+        "https://github.com/modelcontextprotocol/servers/blob/194cc86e3ae6400958555bd4116849d822d69263/src/sequentialthinking/README.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "microsoft/playwright-mcp",
+      "url": "https://github.com/microsoft/playwright-mcp",
+      "revision": "0c4107acbecb75472b23c05c0e42471a0011874f",
+      "license": "Apache-2.0",
+      "use": "reference-only",
+      "decision": "exclude: browser automation outside target constraints",
+      "verification": "source",
+      "evidence": [
+        "https://github.com/microsoft/playwright-mcp/blob/0c4107acbecb75472b23c05c0e42471a0011874f/README.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills",
+      "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+      "license": "per-file-review-required",
+      "use": "reference-only",
+      "decision": "exclude from bundle: per-skill licensing/runtime assumptions",
+      "verification": "static",
+      "evidence": [
+        "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/README.md",
+        "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/frontend-design/SKILL.md",
+        "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/pdf/SKILL.md",
+        "https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/xlsx/SKILL.md"
+      ],
+      "limitations": "No package installed, no speed/quality uplift measured; no code vendored."
+    },
+    {
+      "id": "UpstageAI/aimp-agentry",
+      "url": "https://github.com/UpstageAI/aimp-agentry",
+      "revision": "0a899a0cb4569c2bd41897264a5d36c02864da57",
+      "license": "unknown",
+      "use": "reference-only",
+      "decision": "independent implementation of spec/ADR/evaluation principles; no runtime/provider integration",
+      "verification": "static",
+      "evidence": [
+        "AGENTS.md",
+        "docs/decisions/0008-records-and-routing.md",
+        "docs/decisions/0012-eval-score-stability.md",
+        "docs/decisions/0015-eval-acceptance-record.md"
+      ],
+      "limitations": "No file copied; no upstream tests executed."
+    },
+    {
+      "id": "openai/plugins",
+      "url": "https://github.com/openai/plugins",
+      "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+      "license": "per-file-review-required",
+      "use": "reference-only",
+      "decision": "current catalog; inspect selected plugins only",
+      "verification": "source",
+      "evidence": [
+        "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/README.md"
+      ],
+      "limitations": "README only; no plugin installed."
+    }
+  ]
+}

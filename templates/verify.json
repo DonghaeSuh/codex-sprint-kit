@@ -1,0 +1,8 @@
+{
+  "checks": [
+    {
+      "id": "requirements-review",
+      "manual": "실제 과제의 필수 요구사항을 정의하고 실행 가능한 검사로 교체하세요."
+    }
+  ]
+}
