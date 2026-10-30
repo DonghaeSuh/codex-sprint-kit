@@ -19,7 +19,16 @@
 - Current shell DNS prevented direct remote MCP checks; source access used connected tools.
 - No Linux runtime, constrained evaluation environment, or native skill auto-discovery test was run.
 - Manual UI and human explanation rehearsal remain for the user.
-- Publication requires a working GitHub login and network; local packaging is not publication.
+- The initial public repository was confirmed through GitHub; each subsequent update
+  must be checked against its remote branch head. MCP runtime remains unverified.
+
+## Session guide update
+README now uses the actual public URL and a two-command entrypoint.
+SESSION.md routes bootstrap, requirements, task-specific checks, bounded experiments,
+manual verification, handoff, and submission inside the evaluation workspace.
+BOUNDARIES.md and expanded STATE fields are added without replacing existing files.
+The guide is an operational contract, not a technical network isolation mechanism.
+No actual evaluation problem or experiment was run to validate this guide.
 
 ## Reproduce
 From the kit root:

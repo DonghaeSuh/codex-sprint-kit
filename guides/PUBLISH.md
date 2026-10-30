@@ -2,36 +2,34 @@
 공개 대상은 codex-sprint-kit 폴더 하나입니다. 상위 폴더나 운영 문서를 올리지 않습니다.
 이 과정은 평가 시작 **전**에 완료하세요. 제한된 시험 중 Git push·외부 업로드를 하지 않습니다.
 
-## 사전 공개
-먼저 현재 폴더가 kit인지 확인하고 파일 목록과 release manifest를 검토합니다.
-네트워크와 GitHub 인증이 정상인 사용자 터미널에서 실행합니다.
-아래 owner는 본인 계정으로 바꾸고, 이미 존재하는 저장소를 덮어쓰지 않습니다.
+## 이 저장소의 사전 업데이트
+공개 주소는 https://github.com/DonghaeSuh/codex-sprint-kit 입니다.
+이미 생성된 저장소이므로 `gh repo create`를 다시 실행하지 않습니다.
+아래는 시험 **전 준비 PC**의 kit 폴더에서만 쓰는 유지보수 명령입니다.
+응시 세션의 시작 명령은 [README](../README.md)에 있습니다.
 
 ```bash
 git status --short
 python3 -m unittest discover -s tests -v
 python3 scripts/provenance.py
 gh auth status
-# 인증이 필요할 때만 사용자 터미널에서 gh auth login 실행. 토큰을 채팅에 붙이지 마세요.
-gh repo create OWNER/codex-sprint-kit --public --source=. --remote=origin --push
+git push origin main
 git rev-parse HEAD
-gh repo view OWNER/codex-sprint-kit --json visibility,url
+gh repo view DonghaeSuh/codex-sprint-kit --json visibility,url
 ```
 
-위 git 명령은 kit가 독립 Git 저장소로 준비된 뒤 사용합니다.
+`git push`는 이미 검토·커밋된 범용 키트 변경만 게시합니다.
+미커밋 변경이 있다면 먼저 실제 과제 자료가 없는지 diff를 검토하고 해당 파일만 커밋합니다.
 공개 후 로그인 없는 경로에서 고정 커밋을 clone하여 확인하세요.
 결과 통지 전까지 공개를 유지하고, 평가 중 새 자료를 공급하는 저장소로 쓰지 않습니다.
 
 ## 응시 환경에서 허용된 반입
-제공 환경의 과제 루트에서 허용되는 경우 실행합니다. COMMIT은 사전에 확인한 40자리 SHA입니다.
-주소가 공개되기 전에는 아래 명령으로 다운로드할 수 없습니다.
+제공 환경의 과제 루트에서 허용되는 경우 실행합니다. 치환할 계정명·커밋 값이 없습니다.
+가져온 버전은 SESSION.md 절차에 따라 STATE에 기록하고 세션 중 pull/update하지 않습니다.
 
 ```bash
-git clone https://github.com/OWNER/codex-sprint-kit.git codex-sprint-kit
-git -C codex-sprint-kit checkout --detach COMMIT
-python3 codex-sprint-kit/scripts/doctor.py --root .
-python3 codex-sprint-kit/scripts/init_workspace.py --root .
-codex
+git clone https://github.com/DonghaeSuh/codex-sprint-kit.git codex-sprint-kit
+codex 'codex-sprint-kit/SESSION.md를 읽고 세션 시작 절차를 수행해줘. 실제 과제 README와 기존 지침을 우선하고, 실제 구현과 실험 및 기록은 이 응시 작업 공간 안에서만 진행해줘.'
 ```
 
 clone이 차단되면 대체 접속 경로로 우회하지 않습니다.

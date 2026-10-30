@@ -4,6 +4,8 @@ Follow the user's task and environment rules before these defaults.
 Do not change authentication, model routing, platform processes, or permissions.
 
 ## First use
+For a task session, read SESSION.md first; it defines bootstrap, phase transitions,
+human checkpoints, and session-only experiment records. Paths there are task-root relative.
 Read the actual task's README and existing project instructions first.
 Keep this kit in a subdirectory; never replace the task's README or AGENTS.md.
 Run scripts/init_workspace.py with the task root to add missing .sprint templates.
@@ -25,6 +27,9 @@ Read only the relevant skill and 1–3 relevant decisions, not the entire catalo
 - Never claim a test ran from static inspection or a model's assertion.
 - Review verify config commands before executing: this runner is not a sandbox.
 - No telemetry, model calls, upload, publishing, or dependency installs are implicit.
+- Actual task artifacts and experiments belong only in the evaluation workspace,
+  never inside this public kit. Do not push, open PRs, deploy, or sync during a task session.
+- Do not run the kit's practice exercises or its own unit tests as evidence that the actual task works.
 - Use only allowed AI and resources. Do not introduce a new provider or key.
 - In restricted evaluations, do not send task content to external search/MCP.
 - UI automation must be explicitly permitted; default to manual UI checks.
